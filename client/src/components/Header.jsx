@@ -9,7 +9,7 @@ export default function Header(){const[o,setO]=useState(false);const nav=useNavi
  <div className="w flex items-center gap-4 py-2.5"><Link to="/"><img src={logo} alt="Millions Rise" className="h-12 w-auto"/></Link>
  <input list="sl" onChange={go} placeholder="Search funds, services, calculators…" className="inp mx-auto hidden max-w-sm lg:block"/>
  <datalist id="sl">{Object.keys(C).map(k=><option key={k} value={C[k].n}/>)}{['IPO Corner','Compare Funds','Risk Profile','Services','Contact'].map(x=><option key={x} value={x}/>)}</datalist>
- <div className="ml-auto hidden items-center gap-4 text-sm font-bold lg:flex"><a href={'tel:'+CFG.tel}>📞 {CFG.phone}</a><a href={CFG.waLink} target="_blank" rel="noreferrer">WhatsApp</a><Link to="/contact" className="btn">Book a Consultation</Link></div>
+ <div className="ml-auto hidden items-center gap-4 text-sm font-bold lg:flex"><a href={'tel:'+CFG.tel}>📞 {CFG.phone}</a><a href={CFG.waLink} target="_blank" rel="noreferrer"></a><Link to="/contact" className="btn">Book a Consultation</Link></div>
  <button className="ml-auto text-2xl lg:hidden" onClick={()=>setO(!o)} aria-label="Menu">☰</button></div>
  <div className={`border-t border-slate-200 ${o?'block':'hidden'} lg:block`}><div className="w lg:flex lg:items-center lg:justify-between">
  <nav className="py-2 lg:flex lg:py-0">{NAV.map(([t,to,sub])=>(<div key={t} className="group relative">
