@@ -1,0 +1,5 @@
+import Head from '../components/Head';import {CFG} from '../config';
+export default function Disclaimer(){return(<section className="sec"><div className="w max-w-3xl"><Head e="Compliance" t="Disclaimer & Disclosures"/><div className="card space-y-3 text-sm text-slate-600">
+<p><b>Risk factors:</b> Mutual fund investments are subject to market risks; read all scheme related documents carefully. Schemes do not assure or guarantee returns; past performance may not be sustained. Check exit load and expense ratio before investing.</p>
+<p><b>Commission disclosure:</b> As a mutual fund distributor we may earn commission on Regular Plans. Details are shared with clients at the time of investment. [Edit as applicable]</p>
+<p><b>Distributor status:</b> AMFI registered MFD, {CFG.arn}. We are not a SEBI-registered Investment Adviser; content is for education only. IPO/demat services are offered through Motilal Oswal. Insurance is a subject matter of solicitation. Calculators are illustrative.</p></div></div></section>)}

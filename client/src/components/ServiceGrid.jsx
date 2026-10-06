@@ -1,0 +1,2 @@
+import {Link} from 'react-router-dom';import {SV} from '../lib/data';
+export default function ServiceGrid({n=16}){return(<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{SV.slice(0,n).map(s=><Link key={s[1]} to="/services" className="card"><div className="text-2xl">{s[0]}</div><h3 className="mt-2 font-serif text-base text-ink">{s[1]}</h3><p className="text-[13.5px] text-slate-500">{s[2]}</p></Link>)}</div>)}

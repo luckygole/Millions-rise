@@ -1,0 +1,2 @@
+import Head from '../components/Head';import {useBlogs} from '../lib/api';
+export default function Blogs(){const b=useBlogs();return(<section className="sec"><div className="w max-w-3xl"><Head e="Insights" t="Financial education"/>{b.map(x=><details key={x[1]} className="mb-3 rounded-xl border border-slate-200 p-4"><summary className="cursor-pointer font-bold text-ink">{x[1]}</summary><p className="mt-2 text-slate-600">{x[2]}</p></details>)}</div></section>)}
