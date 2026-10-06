@@ -84,7 +84,7 @@ import Disclaimer from "./pages/Disclaimer";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Admin from "./pages/Admin";
-import StatsCounter from "./components/StatsCounter";
+
 
 export default function App() {
   const { pathname } = useLocation();
