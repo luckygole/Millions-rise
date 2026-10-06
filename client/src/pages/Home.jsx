@@ -299,6 +299,8 @@ import Head from "../components/Head";
 import StatsCounter from "../components/StatsCounter";
 import { C } from "../lib/calculators";
 import { useBlogs } from "../lib/api";
+import StatsCounter from "../components/StatsCounter";
+
 
 export default function Home() {
   const blogs = useBlogs();
