@@ -7,3 +7,4 @@ return(<section className="sec"><div className="w"><Head e="IPO Corner" t="Curre
 <dl className="my-3 grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs">{L.map((l,i)=><Fragment key={l}><dt className="text-slate-500">{l}</dt><dd className="font-bold">{[x.o+' – '+x.c,x.p,x.l,x.i,x.ld,x.sub,x.g][i]}</dd></Fragment>)}</dl>
 {s!=='lst'&&<button className="btn w-full" onClick={()=>setAp(x.n)}>Apply Now</button>}</div>)}</div>
 <p className="mt-4 text-xs text-slate-500">Sample data until IPOs are added from /admin. GMP is unofficial and not a guarantee. IPO investments are subject to market risk; read the RHP before applying.</p></div><ApplyModal name={ap} onClose={()=>setAp(null)}/></section>)}
+

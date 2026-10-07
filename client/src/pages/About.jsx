@@ -1,4 +1,44 @@
-import Head from '../components/Head';
-export default function About(){return(<section className="sec"><div className="w"><Head e="About Us" t="Investor-first. Goal-focused." s="Millions Rise is a wealth and investment solutions firm in Mandi Dabwali, helping families invest with clarity."/>
-<div className="grid gap-4 md:grid-cols-2"><div className="card"><h3 className="font-serif text-lg text-ink">Our Mission</h3><p className="text-slate-500">Empower families with trusted guidance and disciplined, goal-based investing.</p></div><div className="card"><h3 className="font-serif text-lg text-ink">Our Vision</h3><p className="text-slate-500">To be the most trusted financial partner in our region and beyond.</p></div></div>
-<h2 className="h2 mt-10">Our approach</h2><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{[['Understand','Goals, income and risk comfort.'],['Plan','Allocation and SIP roadmap.'],['Invest','Paperless onboarding.'],['Review','Regular review and rebalancing.']].map(([a,b],i)=><div key={a} className="card"><div className="text-2xl font-bold text-gold">{i+1}</div><h3 className="font-serif text-ink">{a}</h3><p className="text-sm text-slate-500">{b}</p></div>)}</div></div></section>)}
+import Head from "../components/Head";
+export default function About() {
+  return (
+    <section className="sec">
+      <div className="w">
+        <Head
+          e="About Us"
+          t="Investor-first. Goal-focused."
+          s="Millions Rise is a wealth and investment solutions firm in Mandi Dabwali, helping families invest with clarity."
+        />
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="card">
+            <h3 className="font-serif text-lg text-ink">Our Mission</h3>
+            <p className="text-slate-500">
+              Empower families with trusted guidance and disciplined, goal-based
+              investing.
+            </p>
+          </div>
+          <div className="card">
+            <h3 className="font-serif text-lg text-ink">Our Vision</h3>
+            <p className="text-slate-500">
+              To be the most trusted financial partner in our region and beyond.
+            </p>
+          </div>
+        </div>
+        <h2 className="h2 mt-10">Our approach</h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["Understand", "Goals, income and risk comfort."],
+            ["Plan", "Allocation and SIP roadmap."],
+            ["Invest", "Paperless onboarding."],
+            ["Review", "Regular review and rebalancing."],
+          ].map(([a, b], i) => (
+            <div key={a} className="card">
+              <div className="text-2xl font-bold text-gold">{i + 1}</div>
+              <h3 className="font-serif text-ink">{a}</h3>
+              <p className="text-sm text-slate-500">{b}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

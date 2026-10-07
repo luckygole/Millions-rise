@@ -84,32 +84,8 @@ function Counter({ value, duration = 1800 }) {
 
 export default function StatsCounter() {
   return (
-    // <section className="relative z-10 px-1 sm:px-4">
-    //   <div className="mx-auto grid max-w-7xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.12)] md:grid-cols-4">
-    //     {STATS.map((stat, index) => (
-    //       <div
-    //         key={stat.label}
-    //         className={`flex min-h-[145px] flex-col items-center justify-center px-5 py-7 text-center ${
-    //           index !== STATS.length - 1
-    //             ? "border-b border-slate-200 md:border-b-0 md:border-r"
-    //             : ""
-    //         }`}
-    //       >
-    //         <div className="font-serif text-4xl font-bold leading-none text-[#302d7c] sm:text-5xl">
-    //           {stat.prefix}
-    //           <Counter value={stat.value} />
-    //           <span className="text-gold">{stat.suffix}</span>
-    //         </div>
-
-    //         <p className="mt-3 max-w-[220px] text-xs font-bold leading-5 tracking-wide text-slate-500">
-    //           {stat.label}
-    //         </p>
-    //       </div>
-    //     ))}
-    //   </div>
-    // </section>
-
-    <section className="relative z-10 px-1 sm:px-4">
+  
+    <section className="relative pt-5 z-10 px-1 sm:px-4">
   <div className="mx-auto grid max-w-7xl overflow-hidden rounded-2xl border border-[#29466D] bg-[#0B2345] shadow-[0_12px_35px_rgba(0,0,0,0.25)] md:grid-cols-4">
     {STATS.map((stat, index) => (
       <div
