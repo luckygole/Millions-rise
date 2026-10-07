@@ -427,27 +427,10 @@ This makes it a strong example of full-stack development and practical client-pr
 
 ---
 
-## 📸 Project Preview
-
-> Add screenshots/GIFs of the homepage, market ticker, calculator, IPO section, login/signup, and admin dashboard here for a stronger GitHub presentation.
-
-Example:
-
-```text
-screenshots/
-├── homepage.png
-├── market-ticker.png
-├── calculators.png
-├── ipo.png
-├── login.png
-└── admin-dashboard.png
-```
-
----
 
 ## 🧑‍💻 Developer
 
-### Laksh Gole
+### Lucky Gole
 
 **Full Stack Web Developer | MERN | React | Node.js**
 
