@@ -144,7 +144,7 @@ export default function Home() {
           onClick={() => go(-1)}
           className="
             absolute left-2 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2
-            place-items-center rounded-md bg-transparent text-black shadow-lg
+            place-items-center rounded-md bg-transparent text-gray-100 shadow-lg
             transition-all duration-300
             hover:bg-black/10 hover:text-ink
             active:scale-95
@@ -161,7 +161,7 @@ export default function Home() {
           onClick={() => go(1)}
           className="
             absolute right-2 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2
-            place-items-center rounded-md bg-transparent text-black shadow-lg
+            place-items-center rounded-md bg-transparent text-gray-50 shadow-lg
             transition-all duration-300
             hover:bg-black/10 hover:text-ink
             active:scale-95
@@ -513,124 +513,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =========================================================
-          FINANCIAL GOALS
-      ========================================================= */}
-      <section className="w-full overflow-hidden bg-slate-50 py-12 sm:py-14 lg:py-16">
-        <div className={container}>
-          <Head
-            e="Plan with purpose"
-            t="Give shape to your financial goals"
-            s="Whether you are planning for retirement, education, a home or your next big milestone, start with a clear plan."
-          />
-
-          <div
-            className="
-              grid
-              grid-cols-1
-              gap-4
-              min-[500px]:grid-cols-2
-              lg:grid-cols-4
-            "
-          >
-            {[
-              ["retire", "🏖️"],
-              ["edu", "🎓"],
-              ["wed", "💍"],
-              ["home", "🏠"],
-              ["car", "🚗"],
-              ["vac", "✈️"],
-              ["goal", "🎯"],
-              ["sip", "📈"],
-            ].map(([k, icon]) => (
-              <Link
-                key={k}
-                to={"/calculators/" + k}
-                className="
-                  group
-                  min-w-0
-                  rounded-xl
-                  border
-                  border-slate-200
-                  bg-white
-                  p-5
-                  shadow-sm
-                  transition-all
-                  duration-300
-                  hover:-translate-y-1.5
-                  hover:border-[#E7B65A]
-                  hover:shadow-[0_12px_30px_rgba(41,70,109,0.12)]
-                  focus:outline-none
-                  focus:ring-2
-                  focus:ring-[#E7B65A]
-                  focus:ring-offset-2
-                  active:translate-y-0
-                "
-              >
-                <div
-                  className="
-                    text-2xl
-                    transition-transform
-                    duration-300
-                    group-hover:scale-110
-                  "
-                >
-                  {icon}
-                </div>
-
-                <h3 className="mt-3 break-words font-semibold text-ink transition-colors duration-300 group-hover:text-[#29466D]">
-                  {C[k].n}
-                </h3>
-
-                <p className="mt-1 text-xs leading-5 text-slate-500">
-                  Plan and estimate your requirement.
-                </p>
-
-                <span
-                  className="
-                    mt-4
-                    inline-flex
-                    items-center
-                    gap-1
-                    text-xs
-                    font-bold
-                    text-brand
-                    transition-all
-                    duration-300
-                    group-hover:gap-2
-                  "
-                >
-                  Calculate →
-                </span>
-              </Link>
-            ))}
-          </div>
-
-          <div className="mt-7">
-            <Link
-              to="/calculators/sip"
-              className="
-                group
-                inline-flex
-                max-w-full
-                break-words
-                items-center
-                gap-1
-                text-sm
-                font-bold
-                text-brand
-                transition-all
-                duration-300
-                hover:text-[#D69E35]
-                hover:gap-2
-              "
-            >
-              Explore all 16 financial calculators →
-            </Link>
-          </div>
-        </div>
-      </section>
-
+     
 
 
 
@@ -645,7 +528,12 @@ export default function Home() {
   </div>
 </section>
 
-
+ {/* =========================================================
+          FINANCIAL GOALS
+      ========================================================= */}
+      
+         {/* calculator */}
+      <CalcShowcase />
 
 
 
@@ -819,8 +707,7 @@ export default function Home() {
       </section>
 
 
-      {/* calculator */}
-      <CalcShowcase />
+     
 
       {/* =========================================================
           WHY CHOOSE US
