@@ -63,18 +63,57 @@ function Reveal({
 }
 
 /* ------------------------------------------------------------------ */
-/*  Footer links                                                       */
+/*  Content data                                                       */
 /* ------------------------------------------------------------------ */
 
-const footerLinks = [
-  "Important Links",
-  "Disclaimer",
-  "Disclosure",
-  "Privacy Policy",
-  "SID/SAI/KIM",
-  "Code of Conduct",
-  "SEBI Circulars",
-  "AMFI Risk Factors",
+const services = [
+  {
+    title: "Mutual Funds & SIPs",
+    text: "Investment solutions for different financial goals and time horizons.",
+  },
+  {
+    title: "Portfolio Review & Goal Planning",
+    text: "Review of existing investments and goal-oriented financial planning support.",
+  },
+  {
+    title: "Demat & Share Market Services",
+    text: "Demat account opening assistance and share market services through our authorised partner arrangements.",
+  },
+  {
+    title: "IPO & NFO Assistance",
+    text: "Information and application assistance for eligible public issues and new fund offers.",
+  },
+  {
+    title: "Bonds, NCDs & Fixed Deposits",
+    text: "Information and access assistance for available fixed-income investment products.",
+  },
+  {
+    title: "Insurance Solutions",
+    text: "Health, life, term and motor insurance options.",
+  },
+  {
+    title: "Tax Services",
+    text: "Income Tax Return (ITR) and TDS return filing assistance.",
+  },
+];
+
+const approach = [
+  {
+    title: "Understanding Your Goals",
+    text: "We begin by understanding your financial priorities and what you want to achieve.",
+  },
+  {
+    title: "Transparent Guidance",
+    text: "We explain relevant products, their features, costs and risks so you can make informed decisions.",
+  },
+  {
+    title: "Solutions Around Your Needs",
+    text: "We help you explore suitable financial products based on your goals, investment horizon and risk comfort.",
+  },
+  {
+    title: "Long-Term Perspective",
+    text: "We encourage informed decisions, financial discipline and periodic reviews as your needs evolve.",
+  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -91,11 +130,11 @@ export default function About() {
 
       <section className="bg-gradient-to-r from-[#1b1b1b] via-[#3a2f22] to-[#1b1b1b] py-4 text-center">
         <h1 className="text-lg font-semibold text-white">
-          Company Profile
+          About Millions Rise
         </h1>
       </section>
 
-      {/* ---------- 1. Company Profile ---------- */}
+      {/* ---------- 1. About Millions Rise ---------- */}
 
       <section className="mx-auto max-w-[1300px] px-4 pt-6 sm:px-6 lg:px-0">
         <div className="relative lg:pb-[200px]">
@@ -104,18 +143,16 @@ export default function About() {
           <Reveal from="left" className="lg:w-[85%]">
             <div className="rounded-[28px] bg-[#0066ad] px-6 py-8 sm:px-10 lg:min-h-[315px] lg:px-14 lg:py-12">
               <h2 className="text-3xl font-semibold text-white">
-                Company Profile
+                Building Financial Confidence. Growing Wealth with
+                Purpose.
               </h2>
 
               <p className="mt-4 text-justify text-[15px] leading-7 text-white lg:max-w-[670px]">
-                Founded in 1998, Right Investment has proudly
-                completed over 25 years of service in the financial
-                industry. Today, with the third generation actively
-                involved, we carry forward a legacy of trust,
-                experience, and client-first thinking. Our
-                long-standing presence is a reflection of the strong
-                relationships we've built and the consistent value
-                we've delivered to families across generations.
+                Millions Rise – Wealth &amp; Investment Solutions is
+                a financial services business based in Mandi
+                Dabwali, Haryana, dedicated to helping individuals,
+                families and businesses make informed financial
+                decisions.
               </p>
             </div>
           </Reveal>
@@ -146,87 +183,124 @@ export default function About() {
         <Reveal from="bottom" className="mt-10 lg:mt-0">
           <div className="border-l-[5px] border-[#254880] pl-5 sm:pl-12">
             <p className="text-justify text-[15px] leading-7">
-              We extend a plethora of wealth management products
-              and services to cater to diverse financial
-              needs—ranging from mutual funds, bonds, NCDs, life and
-              health insurance, to PMS (Portfolio Management
-              Services), AIF (Alternative Investment Funds), and
-              GIFT City-based investment solutions.
+              We believe that every financial journey is different.
+              Whether your goal is to build long-term wealth, invest
+              for your family's future, protect your loved ones or
+              plan for important life milestones, we aim to make
+              financial solutions easier to understand and access.
             </p>
 
             <p className="mt-6 text-justify text-[15px] leading-7">
-              With a legacy of integrity and a future-focused
-              mindset, we remain dedicated to helping you simplify
-              decisions and stay confidently on track toward
-              financial freedom.
+              Our approach focuses on understanding your needs,
+              explaining available options transparently and helping
+              you make decisions aligned with your financial goals,
+              time horizon and risk profile.
             </p>
           </div>
         </Reveal>
       </section>
 
-      {/* ---------- 2. Mission & Vision ---------- */}
+      {/* ---------- 2. What We Do ---------- */}
+
+      <section className="mx-auto mt-16 max-w-[1300px] px-4 sm:px-6 lg:px-0">
+        <Reveal from="bottom">
+          <div className="text-center">
+            <h2 className="text-3xl font-semibold text-[#0066ad]">
+              What We Do
+            </h2>
+
+            <p className="mx-auto mt-3 max-w-[700px] text-[15px] leading-7">
+              We offer a range of financial products and services to
+              support different needs under one roof:
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((item, i) => (
+            <Reveal
+              key={item.title}
+              from="bottom"
+              delay={(i % 3) * 150}
+            >
+              <div className="h-full rounded-xl border-t-[5px] border-[#254880] bg-white px-6 py-6 shadow-lg">
+                <h3 className="text-xl font-semibold text-[#0066ad]">
+                  {item.title}
+                </h3>
+
+                <p className="mt-3 text-[15px] leading-7">
+                  {item.text}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------- 3. Our Approach & Our Commitment ---------- */}
 
       <section className="mx-auto mt-16 max-w-[1300px] px-4 sm:px-6 lg:px-0">
         <div className="grid gap-6 md:grid-cols-2">
-          {/* Mission - left se */}
+          {/* Approach - left se */}
 
           <Reveal from="left">
             <div className="h-full rounded-xl bg-[#0066ad] px-6 py-8 text-center text-white shadow-lg sm:px-8">
               <FaBullseye className="mx-auto text-6xl" />
 
               <h3 className="mt-5 text-3xl font-semibold">
-                Our Mission
+                Our Approach
               </h3>
 
-              <p className="mt-5 text-[15px] leading-7">
-                Our mission is to deliver unbiased, research-driven
-                financial guidance that helps our clients make
-                informed decisions and build long-term wealth. We
-                are committed to offering personalized investment
-                solutions that align with your life stage, financial
-                goals, and risk appetite.
-              </p>
+              {approach.map((item) => (
+                <div key={item.title} className="mt-5">
+                  <h4 className="text-lg font-semibold">
+                    {item.title}
+                  </h4>
 
-              <p className="mt-6 text-[15px] leading-7">
-                Through transparent communication, disciplined
-                planning, and continuous learning, we strive to be
-                your trusted partner in navigating every market
-                condition—helping you move confidently toward a
-                secure financial future.
-              </p>
+                  <p className="mt-1 text-[15px] leading-7">
+                    {item.text}
+                  </p>
+                </div>
+              ))}
             </div>
           </Reveal>
 
-          {/* Vision - right se */}
+          {/* Commitment - right se */}
 
           <Reveal from="right" delay={200}>
             <div className="h-full rounded-xl bg-[#0066ad] px-6 py-8 text-center text-white shadow-lg sm:px-8">
               <FaLightbulb className="mx-auto text-6xl" />
 
               <h3 className="mt-5 text-3xl font-semibold">
-                Our Vision
+                Our Commitment
               </h3>
 
               <p className="mt-5 text-[15px] leading-7">
-                Our vision is to be a reliable and respected
-                financial partner, known for helping individuals and
-                families achieve financial freedom through informed
-                and disciplined investing.
+                At Millions Rise, our aim is to make financial
+                services more accessible, understandable and
+                convenient. We value transparency, responsible
+                communication and lasting client relationships.
               </p>
 
               <p className="mt-6 text-[15px] leading-7">
-                We aim to simplify complex financial decisions and
-                create a future where every investor feels confident,
-                empowered, and in control of their wealth
-                journey—regardless of market cycles or economic
-                changes.
+                We believe that financial progress begins with the
+                right information, thoughtful decisions and a clear
+                plan.
+              </p>
+
+              <p className="mt-8 text-lg font-semibold">
+                Millions Rise – Wealth &amp; Investment Solutions
+              </p>
+
+              <p className="mt-1 text-[15px] italic">
+                Your Wealth. Your Future.
               </p>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ---------- 3. Contact cards + footer ---------- */}
+      {/* ---------- 4. Contact cards ---------- */}
 
       <section className="mt-16">
         {/* Contact cards - teeno bottom se */}
@@ -297,64 +371,6 @@ export default function About() {
             </Reveal>
           </div>
         </div>
-
-        {/* Footer */}
-
-        {/* <footer className="bg-black px-4 py-8 text-center text-[13px] leading-6 text-white sm:px-8">
-          <p className="mx-auto max-w-[1250px]">
-            <strong>Risk Factors</strong> – Investments in Mutual
-            Funds are subject to Market Risks. Read all scheme
-            related documents carefully before investing. Mutual Fund
-            Schemes do not assure or guarantee any returns. Past
-            performances of any Mutual Fund Scheme may or may not be
-            sustained in future. There is no guarantee that the
-            investment objective of any suggested scheme shall be
-            achieved. All existing and prospective investors are
-            advised to check and evaluate the Exit loads and other
-            cost structure (TER) applicable at the time of making the
-            investment before finalizing on any investment decision
-            for Mutual Funds schemes. We deal in Regular Plans only
-            for Mutual Fund Schemes and earn a Trailing Commission
-            on client investments. Disclosure For Commission
-            earnings is made to clients at the time of investments.
-            Option of Direct Plan for every Mutual Fund Scheme is
-            available to investors offering advantage of lower
-            expense ratio. We are not entitled to earn any
-            commission on Direct plans. Hence we do not deal in
-            Direct Plans.
-          </p>
-
-          <p className="mt-5">
-            AMFI Registered Mutual Fund Distributor – ARN-41713 |
-            Date of initial registration – 29 MAR 2023 | Current
-            validity of ARN – 27 MAR 2029
-          </p>
-
-          <p className="mt-4">
-            Grievance Officer- Mehul Ramesh Gosalia |{" "}
-            {S.email}
-          </p>
-
-          <p className="mt-4">
-            Copyright 2025. Right Investment.{" "}
-            {footerLinks.map((link, i) => (
-              <span key={link}>
-                <a
-                  href="#"
-                  className="text-[#ff5a00] transition-colors hover:text-orange-300"
-                >
-                  {link}
-                </a>
-
-                {i < footerLinks.length - 1 && " | "}
-              </span>
-            ))}
-          </p>
-
-          <p className="mt-5 text-xs">
-            Image by Freepik | Icon by Flaticon
-          </p>
-        </footer> */}
       </section>
     </div>
   );

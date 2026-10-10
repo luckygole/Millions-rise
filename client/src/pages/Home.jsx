@@ -8,11 +8,11 @@ import { C } from "../lib/calculators";
 import { useBlogs } from "../lib/api";
 import IpoList from "../components/IpoList";
 import CalcShowcase from "../components/CalcShowcase";
+import LogoSlider from "../components/LogoSlider";
 
 /* ---------- HERO SLIDER DATA ---------- */
 // Apna sahi demat account link yahan daalo
-const DEMAT_URL =
-  "https://www.motilaloswal.com/open-demat-account";
+const DEMAT_URL = "https://www.motilaloswal.com/open-demat-account";
 
 const img = (id) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1800&q=70`;
@@ -52,13 +52,7 @@ const Chevron = ({ dir }) => (
     strokeLinejoin="round"
     aria-hidden="true"
   >
-    <path
-      d={
-        dir === "left"
-          ? "M15 5l-7 7 7 7"
-          : "M9 5l7 7-7 7"
-      }
-    />
+    <path d={dir === "left" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"} />
   </svg>
 );
 
@@ -90,9 +84,7 @@ export default function Home() {
     if (!elements.length) return;
 
     // Reduced motion enabled ho to animation disable
-    if (
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       elements.forEach((element) => {
         element.classList.add("home-reveal-visible");
       });
@@ -112,7 +104,7 @@ export default function Home() {
       {
         threshold: 0.12,
         rootMargin: "0px 0px -40px 0px",
-      }
+      },
     );
 
     elements.forEach((element) => observer.observe(element));
@@ -130,19 +122,13 @@ export default function Home() {
   const touchX = useRef(null);
 
   const go = useCallback(
-    (d) =>
-      setIndex(
-        (p) => (p + d + SLIDES.length) % SLIDES.length
-      ),
-    []
+    (d) => setIndex((p) => (p + d + SLIDES.length) % SLIDES.length),
+    [],
   );
 
   // Auto-play har 5 second (hover/focus par ruk jata hai)
   useEffect(() => {
-    if (
-      paused ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
       return;
 
     const t = setInterval(() => go(1), 5000);
@@ -158,8 +144,7 @@ export default function Home() {
   const onTouchEnd = (e) => {
     if (touchX.current === null) return;
 
-    const dx =
-      e.changedTouches[0].clientX - touchX.current;
+    const dx = e.changedTouches[0].clientX - touchX.current;
 
     if (Math.abs(dx) > 50) {
       go(dx < 0 ? 1 : -1);
@@ -238,9 +223,7 @@ export default function Home() {
           onFocus={() => setPaused(true)}
           onBlur={() => setPaused(false)}
           onKeyDown={onKeyDown}
-          onTouchStart={(e) =>
-            (touchX.current = e.touches[0].clientX)
-          }
+          onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
           onTouchEnd={onTouchEnd}
         >
           {/* BACKGROUND IMAGES */}
@@ -261,12 +244,10 @@ export default function Home() {
                     }))
                   }
                   className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-                    i === index
-                      ? "opacity-100"
-                      : "opacity-0"
+                    i === index ? "opacity-100" : "opacity-0"
                   }`}
                 />
-              )
+              ),
             )}
 
             {/* navy tint + white fade (text saaf padhne ke liye) */}
@@ -278,9 +259,7 @@ export default function Home() {
           </div>
 
           <p className="sr-only" aria-live="polite">
-            {`Slide ${index + 1} of ${SLIDES.length}: ${
-              SLIDES[index].alt
-            }`}
+            {`Slide ${index + 1} of ${SLIDES.length}: ${SLIDES[index].alt}`}
           </p>
 
           {/* LEFT ARROW */}
@@ -403,9 +382,9 @@ export default function Home() {
                   sm:text-base
                 "
               >
-                Goal-based investing, transparent guidance and
-                complete financial solutions for families and
-                businesses, from Mandi Dabwali.
+                Goal-based investing, transparent guidance and complete
+                financial solutions for families and businesses, from Mandi
+                Dabwali.
               </p>
 
               {/* BUTTONS */}
@@ -448,25 +427,25 @@ export default function Home() {
                 {/* THIRD BUTTON */}
 
                 <a
-                  href={DEMAT_URL}
+                  href="https://mosl.co/aW0pvQmxUM"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="
-                    btn
-                    btn-o
-                    whitespace-nowrap
-                    border-[#E7B65A]
-                    bg-[#E7B65A]
-                    text-ink
-                    transition-all
-                    duration-300
-                    hover:-translate-y-1
-                    hover:border-[#D69E35]
-                    hover:bg-[#D69E35]
-                    hover:text-ink
-                    hover:shadow-[0_10px_25px_rgba(231,182,90,0.35)]
-                    active:translate-y-0
-                  "
+    btn
+    btn-o
+    whitespace-nowrap
+    border-[#E7B65A]
+    bg-[#E7B65A]
+    text-ink
+    transition-all
+    duration-300
+    hover:-translate-y-1
+    hover:border-[#D69E35]
+    hover:bg-[#D69E35]
+    hover:text-ink
+    hover:shadow-[0_10px_25px_rgba(231,182,90,0.35)]
+    active:translate-y-0
+  "
                 >
                   Open Demat Account
                 </a>
@@ -551,7 +530,7 @@ export default function Home() {
         ========================================================= */}
 
         <div className="home-reveal home-reveal-bottom w-full min-w-0">
-          <StatsCounter />
+          <LogoSlider />
         </div>
 
         {/* =========================================================
@@ -739,10 +718,7 @@ export default function Home() {
           "
         >
           <div className={container}>
-            <Head
-              e="Explore"
-              t="Useful resources for your financial journey"
-            />
+            <Head e="Explore" t="Useful resources for your financial journey" />
 
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
               {[
@@ -1116,8 +1092,8 @@ export default function Home() {
                 text-slate-300
               "
             >
-              Start with a free consultation and take the first
-              step towards better financial planning.
+              Start with a free consultation and take the first step towards
+              better financial planning.
             </p>
 
             <div className="mt-7 flex flex-wrap justify-center gap-3">

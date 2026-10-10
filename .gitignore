@@ -3,3 +3,4 @@ node_modules
 client/dist
 waste.html
 home.html
+About.jsx

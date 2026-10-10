@@ -128,6 +128,7 @@ import Disclaimer from "./pages/Disclaimer";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Admin from "./pages/Admin";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 
 export default function App() {
@@ -180,6 +181,8 @@ export default function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/signup" element={<Signup />} />
+
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
           <Route
             path="/admin"
