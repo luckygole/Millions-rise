@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
    poore page me automatically update ho jayengi.
 -------------------------------------------------- */
 
-const COMPANY = "Right Investment";
-const SUPPORT_EMAIL = "mehul2221@yahoo.co.in";
-const EFFECTIVE_DATE = "June 1, 2018"; // <-- apni asli effective date daalo
+const COMPANY = "Millions Rise";
+const SUPPORT_EMAIL = "info@millionsrise.com";
 
 /* --------------------------------------------------
    Small helpers
@@ -25,6 +24,13 @@ const Heading = ({ children }) => (
   </h2>
 );
 
+// Sub heading (2.1, 2.2, 5.1 ...)
+const SubHeading = ({ children }) => (
+  <h3 className="mt-6 font-serif text-lg font-bold leading-snug text-[#071A33] sm:text-xl">
+    {children}
+  </h3>
+);
+
 // Section ki lines (har line alag, thodi tight spacing)
 const Lines = ({ items }) => (
   <div className="mt-4 space-y-1 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
@@ -32,6 +38,24 @@ const Lines = ({ items }) => (
       <p key={line}>{line}</p>
     ))}
   </div>
+);
+
+// Bullet list
+const Bullets = ({ items }) => (
+  <ul className="mt-3 list-disc space-y-1 pl-6 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
+    {items.map((item) => (
+      <li key={item}>{item}</li>
+    ))}
+  </ul>
+);
+
+// Numbered list
+const Numbered = ({ items }) => (
+  <ol className="mt-3 list-decimal space-y-1 pl-6 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
+    {items.map((item) => (
+      <li key={item}>{item}</li>
+    ))}
+  </ol>
 );
 
 /* --------------------------------------------------
@@ -101,117 +125,357 @@ export default function PrivacyPolicy() {
       {/* Left/right padding: mobile 20px, tablet 32px, desktop 64px */}
       <section className="mx-auto w-full max-w-[1280px] px-5 pb-16 pt-8 sm:px-8 sm:pb-20 sm:pt-10 lg:px-16">
 
-        {/* ---------- Intro ---------- */}
-        <p className="text-justify text-[14px] leading-[1.85] text-slate-600 sm:text-[15px]">
-          This privacy policy sets out how <Co /> uses and protects any information that you
-          share when you use this website. <Co /> is committed to ensuring that your privacy is
-          protected at all times. Should we ask you to provide certain information by which you
-          can be identified when using this website, you can be assured that it will only be
-          used in accordance with this privacy statement. <Co /> may change this policy from
-          time to time by updating this page. This policy is effective from {EFFECTIVE_DATE}.{" "}
-          <Co /> understands that our relationship is strongly built on trust and faith. In
-          Course of using information on this website or availing the services, <Co /> may
-          become privy to the personal information of its customer including information that
-          is of confidential nature. <Co /> is strictly committed to protecting the privacy of
-          its Customer and has taken reasonable measures to protect the confidentiality of the
-          customer information and its transmission through World Wide Web. However it shall not
-          be liable in any manner for disclosure of the confidential information in accordance
-          with this Privacy Commitment or in terms of the agreement if any with the Customer or
-          by reasons beyond its control. We may however be required to disclose your personal
-          information to Government, Judicial bodies, and our Regulators or to any person to
-          whom the Firm is under an obligation to make disclosure under the requirements of any
-          law binding on the Firm or any of its branches, if required. Hyperlink Policy for user
-          Any hyperlink to other Internet sites is at customers own risk. The contents of which
-          and the accuracy of opinions expressed are not verified, monitored or endorsed by{" "}
-          <Co />, in any way or manner. <Co /> is not responsible for the setup of any
-          hyperlink from a third party website to <Co />
+        {/* ---------- 1. Introduction ---------- */}
+        <Heading>1. Introduction</Heading>
+        <Lines
+          items={[
+            "Welcome to Millions Rise – Wealth & Investment Solutions (“Millions Rise”, “we”, “our” or “us”).",
+            "We are committed to respecting your privacy and protecting the personal information you share with us through our website, enquiry forms, communication channels and related services.",
+            "This Privacy Policy explains how we collect, use, store, disclose and protect personal information when you visit our website or contact us regarding our financial services.",
+            "By using our website, you acknowledge this Privacy Policy. Where consent is required by applicable law, we will seek the appropriate consent before processing your personal information.",
+          ]}
+        />
+
+
+        {/* ---------- 2. Information We Collect ---------- */}
+        <Heading>2. Information We Collect</Heading>
+        <p className="mt-4 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
+          We may collect the following categories of information, depending on how you interact
+          with our website and services.
         </p>
 
+        <SubHeading>2.1 Personal and Contact Information</SubHeading>
+        <Bullets
+          items={[
+            "Full name",
+            "Mobile number",
+            "Email address",
+            "City, address or location details voluntarily provided",
+            "Information submitted through contact forms, callback requests or other enquiries",
+          ]}
+        />
 
-        {/* ---------- What we collect ---------- */}
-        <Heading>What we collect</Heading>
-        <p className="mt-4 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
-          We may collect the following information:
+        <SubHeading>2.2 Financial and Service-Related Information</SubHeading>
+        <p className="mt-3 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
+          When you request assistance with our services, we may collect relevant information such as:
         </p>
-
-
-        {/* ---------- Name and contact details ---------- */}
-        <Heading>Name and contact details</Heading>
+        <Bullets
+          items={[
+            "Investment objectives and financial preferences",
+            "Mutual Fund and SIP-related requirements",
+            "Demat account and IPO-related service requests",
+            "Insurance requirements",
+            "Tax filing and documentation details",
+            "Information required to coordinate a service with an authorised financial institution or service provider",
+          ]}
+        />
         <Lines
           items={[
-            "We may collect personal information directly from you, such as your name, email address, contact details, or other identifiers, when you register an account, make a purchase, or interact with certain features of the application.",
-            "Your personal information is used to provide you with access to the application's features and functionalities, personalize your experience, and communicate with you about your account or transactions.",
-            "We implement industry-standard security measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction.",
-            "You have the right to control and manage your personal information within the application. You can update your account details, manage your communication preferences, or exercise your rights under applicable data protection laws.",
-            "You can also choose to delete your account or request the deletion of certain personal information by contacting us through the provided channels or there is an option in app settings page.",
+            "We will request only the information reasonably necessary for the relevant purpose. Confidential information such as PAN, bank account details, KYC documents and financial records should be shared through appropriate authorised channels when required.",
+            "We do not ask you to share passwords, PINs or OTPs through our website enquiry forms.",
+          ]}
+        />
+
+        <SubHeading>2.3 Technical and Usage Information</SubHeading>
+        <p className="mt-3 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
+          Depending on the website hosting platform and tools enabled, technical information may
+          be collected, including:
+        </p>
+        <Bullets
+          items={[
+            "IP address",
+            "Browser and device information",
+            "Pages visited and approximate visit duration",
+            "Referring website or source",
+            "Website usage, diagnostic and security information",
+          ]}
+        />
+        <Lines
+          items={[
+            "Such information may be collected through hosting services, server logs, cookies or analytics tools, where enabled.",
           ]}
         />
 
 
-        {/* ---------- Image data ---------- */}
-        <Heading>Collection/Use of image data</Heading>
-        <Lines
-          items={[
-            "When you grant permission, our application may access your device's camera or photo gallery to enable features that involve capturing, uploading.",
-            "The images you upload or capture within our application may be used for document verification in Video KYC by the application.",
-            "We do not share your image data with third parties unless required by law or necessary to provide the services you have requested.",
-          ]}
-        />
-
-
-        {/* ---------- Location data ---------- */}
-        <Heading>Use of location data</Heading>
-        <Lines
-          items={[
-            "We access your location to verifying your identity and granting access to the application's features and functionalities.",
-          ]}
-        />
-
-
-        {/* ---------- Security ---------- */}
-        <Heading>Security</Heading>
-        <Lines
-          items={[
-            "We are committed to ensuring that your information is secure. In order to prevent unauthorized access or disclosure, we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online.",
-          ]}
-        />
-
-
-        {/* ---------- Links to other websites ---------- */}
-        <Heading>Links to other websites</Heading>
-        <Lines
-          items={[
-            "Our website may contain links to other websites of interest. However, once you have used these links to leave our site, you should note that we do not have any control over such third-party websites. Therefore, we cannot be responsible for the protection and privacy of any information which you provide whilst visiting such sites. You should exercise caution and look at the privacy statement applicable to the website in question.",
-          ]}
-        />
-
-
-        {/* ---------- Controlling your personal information ---------- */}
-        <Heading>Controlling your personal information</Heading>
+        {/* ---------- 3. How We Use ---------- */}
+        <Heading>3. How We Use Your Information</Heading>
         <p className="mt-4 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
-          If you believe that any of your information with us is incorrect or incomplete, please
-          email us as soon as possible at{" "}
+          We may use your information for the following purposes:
+        </p>
+        <Numbered
+          items={[
+            "To respond to enquiries and callback requests.",
+            "To explain our services and assist with customer requirements.",
+            "To communicate about Mutual Funds, SIPs, Demat accounts, IPOs, bonds, NCDs, insurance and other services offered by us.",
+            "To coordinate service requests with relevant authorised financial institutions, intermediaries, insurers or other service providers.",
+            "To process requests and maintain service-related records.",
+            "To improve website functionality, customer experience and service quality.",
+            "To send relevant service communications and promotional information where permitted by applicable law.",
+            "To prevent fraud, misuse, unauthorised access and security incidents.",
+            "To comply with applicable legal, regulatory, tax and record-retention requirements.",
+            "To establish, exercise or defend legal claims where necessary and permitted by law.",
+          ]}
+        />
+        <Lines
+          items={[
+            "We will process personal information for specified and lawful purposes, subject to applicable legal requirements.",
+          ]}
+        />
+
+
+        {/* ---------- 4. Legal Basis and Consent ---------- */}
+        <Heading>4. Legal Basis and Consent</Heading>
+        <Lines
+          items={[
+            "Where required by applicable law, we will obtain your consent before collecting or processing personal information.",
+            "You may be asked to provide information directly through our website or through an authorised communication channel.",
+            "Where processing is based on consent, you may withdraw that consent by contacting us at the email address provided in this policy. Withdrawal will not affect the lawfulness of processing carried out before withdrawal.",
+            "We may continue to retain or process certain information where permitted or required by applicable law, including for regulatory compliance and record-keeping.",
+          ]}
+        />
+
+
+        {/* ---------- 5. Sharing and Disclosure ---------- */}
+        <Heading>5. Sharing and Disclosure of Information</Heading>
+        <Lines
+          items={[
+            "We do not sell your personal information to third parties.",
+            "We may disclose relevant information, where necessary and legally permitted, to the following categories of recipients:",
+          ]}
+        />
+
+        <SubHeading>5.1 Financial Institutions and Service Providers</SubHeading>
+        <p className="mt-3 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
+          Depending on the service requested, this may include:
+        </p>
+        <Bullets
+          items={[
+            "Mutual fund houses and asset management companies",
+            "Registrars and transfer agents",
+            "Authorised stockbrokers and depository participants",
+            "Insurance companies and authorised intermediaries",
+            "Financial product providers",
+            "Tax filing, compliance and professional service providers",
+          ]}
+        />
+
+        <SubHeading>5.2 Technology and Communication Providers</SubHeading>
+        <Lines
+          items={[
+            "We may use website hosting providers, email providers, technical support providers and communication platforms to operate our website and respond to enquiries.",
+          ]}
+        />
+
+        <SubHeading>5.3 Legal and Regulatory Authorities</SubHeading>
+        <Lines
+          items={[
+            "We may disclose information when required by applicable law, a valid legal process, a regulatory requirement or a lawful request from a competent authority.",
+            "Any sharing of information will be limited to what is reasonably necessary for the relevant purpose, subject to applicable legal obligations.",
+          ]}
+        />
+
+
+        {/* ---------- 6. Cookies ---------- */}
+        <Heading>6. Cookies and Similar Technologies</Heading>
+        <Lines
+          items={[
+            "Our website or its service providers may use cookies and similar technologies to support website functionality, security, performance and usage analysis, depending on the tools enabled.",
+            "Cookies may help remember preferences or understand how visitors interact with the website.",
+            "You may be able to manage cookies through your browser settings. Disabling certain cookies may affect some website features.",
+            "Where required by applicable law, we will provide appropriate information and obtain consent for non-essential cookies or related technologies.",
+          ]}
+        />
+
+
+        {/* ---------- 7. Third-Party Websites ---------- */}
+        <Heading>7. Third-Party Websites and Services</Heading>
+        <Lines
+          items={[
+            "Our website may contain links or integrations for third-party services, including WhatsApp, Google Maps, financial institutions, insurance providers and other external platforms.",
+            "When you interact with a third-party website or service, that provider may collect and process your information under its own privacy policy and terms.",
+            "Millions Rise does not control the independent privacy practices of third parties. We encourage you to review their applicable privacy policies before sharing information or using their services.",
+          ]}
+        />
+
+
+        {/* ---------- 8. WhatsApp, Phone and Email ---------- */}
+        <Heading>8. WhatsApp, Phone and Email Communication</Heading>
+        <Lines
+          items={[
+            "If you contact us through WhatsApp, phone, email or another communication channel, we may use the information you provide to respond to your enquiry and manage your service request.",
+            "Communications may be handled through third-party platforms, which may process information according to their own policies.",
+            "We may send service-related messages where necessary. Promotional communications will be sent subject to applicable law and your preferences.",
+          ]}
+        />
+        <p className="mt-1 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
+          You may request to stop receiving promotional communications by contacting us at{" "}
           <a
             href={`mailto:${SUPPORT_EMAIL}`}
             className="break-all font-medium text-[#29466D] underline decoration-[#E7B65A] underline-offset-4 transition-colors hover:text-[#E7B65A]"
           >
             {SUPPORT_EMAIL}
-          </a>{" "}
-          We will promptly correct any information found to be incorrect.
+          </a>
+          .
         </p>
 
 
-        {/* ---------- Security certificates ---------- */}
-        <Heading>Security certificates</Heading>
+        {/* ---------- 9. Data Security ---------- */}
+        <Heading>9. Data Security</Heading>
         <Lines
           items={[
-            "We fully recognize and understand the security implications of being a service provider with whom people trust their money. There are many safeguards we adopt in this regard some of these are technical, and some are structural.",
-            "When it comes to data security, our goal is to ensure that: Your data is stored safely and securely passwords are one-way encrypted before being stored in the database for high security.",
-            "All communication with you, or with mutual fund companies and other service providers are encrypted using the highest standards.",
-            "Your data is not shared with anyone, unless you have explicitly requested us to do so to fulfil a transaction request.",
-            "To ensure that we achieve these goals, we have a variety of certifications/trust verifications in place for our firm, both from technical and legal/operational perspectives. All our communications are encrypted by 256-bit encryption, and our data is hosted with top-tier hosting service providers. Also, our data is continuously backed up to ensure continuity of operations.",
+            "We take reasonable technical and organisational measures appropriate to our operations to protect personal information against unauthorised access, disclosure, alteration, loss or misuse.",
+            "Access to personal information should be restricted to individuals and service providers who need it for authorised purposes.",
+            "However, no website, electronic communication channel or internet transmission can be guaranteed to be completely secure.",
+            "Please avoid sending confidential financial information through unsecured channels and notify us if you believe your information has been misused in connection with our website or services.",
+            "Where required by applicable law, we will take appropriate steps in response to a personal data breach, including applicable notifications.",
           ]}
         />
+
+
+        {/* ---------- 10. Data Retention ---------- */}
+        <Heading>10. Data Retention and Deletion</Heading>
+        <Lines
+          items={[
+            "We retain personal information only for as long as reasonably necessary for the purpose for which it was collected, unless a longer retention period is required or permitted by applicable law.",
+            "Retention periods may depend on:",
+          ]}
+        />
+        <Bullets
+          items={[
+            "The nature of the service requested",
+            "The duration of our business relationship",
+            "Applicable financial, tax and regulatory requirements",
+            "The need to resolve disputes or maintain legal records",
+            "Security, fraud prevention and compliance obligations",
+          ]}
+        />
+        <Lines
+          items={[
+            "When personal information is no longer required, we will take appropriate steps to delete it or otherwise handle it in accordance with applicable law.",
+            "A request for deletion may be subject to legal or regulatory record-retention requirements.",
+          ]}
+        />
+
+
+        {/* ---------- 11. Your Privacy Rights ---------- */}
+        <Heading>11. Your Privacy Rights</Heading>
+        <p className="mt-4 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
+          Subject to applicable law, you may contact us to:
+        </p>
+        <Bullets
+          items={[
+            "Request information about personal information processed by us.",
+            "Request correction or updating of inaccurate or incomplete information.",
+            "Request deletion of personal information where applicable.",
+            "Withdraw consent where processing is based on consent.",
+            "Raise a grievance or privacy-related concern.",
+            "Opt out of promotional communications.",
+          ]}
+        />
+        <Lines
+          items={[
+            "We may need to verify your identity before responding to a request involving personal information.",
+            "We will review and respond to requests in accordance with applicable law. Certain requests may be limited where information must be retained for legal, regulatory or compliance purposes.",
+          ]}
+        />
+        <p className="mt-1 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
+          To exercise your rights, email{" "}
+          <a
+            href={`mailto:${SUPPORT_EMAIL}`}
+            className="break-all font-medium text-[#29466D] underline decoration-[#E7B65A] underline-offset-4 transition-colors hover:text-[#E7B65A]"
+          >
+            {SUPPORT_EMAIL}
+          </a>
+          .
+        </p>
+
+
+        {/* ---------- 12. Children's Privacy ---------- */}
+        <Heading>{"12. Children's Privacy"}</Heading>
+        <Lines
+          items={[
+            "Our website is not intended to encourage children to submit personal information independently.",
+            "Where personal information of a child is processed, we will comply with applicable legal requirements, including any applicable parental consent and verification requirements, subject to relevant statutory exceptions.",
+            "If you believe that personal information has been collected inappropriately, please contact us for review.",
+          ]}
+        />
+
+
+        {/* ---------- 13. Financial Services ---------- */}
+        <Heading>13. Financial Services and Regulatory Information</Heading>
+        <Lines
+          items={[
+            "Millions Rise – Wealth & Investment Solutions provides information and assistance relating to financial products and services, subject to the applicable authorisations, registrations and arrangements for each service.",
+            "Information on our website is intended for general informational purposes and should not be interpreted as a guarantee of investment performance or returns.",
+            "Mutual fund investments are subject to market risks. Please read all scheme-related documents carefully before investing. Insurance products are subject to the terms, conditions, exclusions and eligibility requirements of the respective insurer.",
+            "Where a service involves an authorised financial institution, broker, mutual fund distributor, insurer or other regulated entity, additional terms, disclosures, privacy notices and consent requirements may apply.",
+            "Personal information required for KYC, investment transactions, insurance applications or tax filing may be processed by the relevant institution or service provider under its applicable policies and legal obligations.",
+          ]}
+        />
+
+
+        {/* ---------- 14. No Guarantee ---------- */}
+        <Heading>14. No Guarantee of Internet Security</Heading>
+        <Lines
+          items={[
+            "Although we take reasonable precautions to protect information, we cannot guarantee that the website, electronic communications or third-party platforms will always remain free from security risks, interruptions or unauthorised activity.",
+            "You are responsible for taking reasonable precautions when accessing websites and sharing information online.",
+          ]}
+        />
+
+
+        {/* ---------- 15. Changes ---------- */}
+        <Heading>15. Changes to This Privacy Policy</Heading>
+        <Lines
+          items={[
+            "We may update this Privacy Policy from time to time to reflect changes in our services, website functionality, technology, business practices or applicable laws.",
+            "Any revised version will be published on this page with an updated “Last Updated” date.",
+            "We encourage visitors to review this page periodically to remain informed about our privacy practices.",
+          ]}
+        />
+
+
+        {/* ---------- 16. Contact ---------- */}
+        <Heading>16. Contact Information and Grievances</Heading>
+        <Lines
+          items={[
+            "For questions, requests or complaints relating to this Privacy Policy or the processing of your personal information, please contact us using the details below.",
+          ]}
+        />
+        <div className="mt-4 space-y-1 text-[14px] leading-[1.7] text-slate-600 sm:text-[15px]">
+          <p>
+            <strong className="font-semibold text-[#071A33]">Business Name:</strong>{" "}
+            <Co /> – Wealth &amp; Investment Solutions
+          </p>
+          <p>
+            <strong className="font-semibold text-[#071A33]">Email:</strong>{" "}
+            <a
+              href={`mailto:${SUPPORT_EMAIL}`}
+              className="break-all font-medium text-[#29466D] underline decoration-[#E7B65A] underline-offset-4 transition-colors hover:text-[#E7B65A]"
+            >
+              {SUPPORT_EMAIL}
+            </a>
+          </p>
+          <p>
+            <strong className="font-semibold text-[#071A33]">Office Address:</strong> Shop No.2,
+            Opp. Bagla Eye Hospital Street, Colony Road, Mandi Dabwali, Distt.Sirsa -125104,
+            Haryana, India.
+          </p>
+          <p>
+            <strong className="font-semibold text-[#071A33]">Subject Line:</strong> Privacy Policy
+            / Personal Data Request
+          </p>
+        </div>
+        <Lines
+          items={[
+            "Please provide sufficient details about your request so that we can identify and review the matter. We may contact you for additional information or identity verification where necessary.",
+            "We will handle privacy-related enquiries and grievances in accordance with applicable law.",
+          ]}
+        />
+
+        <p className="mt-10 border-t border-slate-200 pt-6 text-center text-[13px] text-slate-500 sm:text-sm">
+          © 2026 Millions Rise – Wealth &amp; Investment Solutions. All rights reserved.
+        </p>
 
       </section>
 

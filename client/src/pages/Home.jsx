@@ -3,16 +3,17 @@ import { Link } from "react-router-dom";
 import CalcWidget from "../components/CalcWidget";
 import ServiceGrid from "../components/ServiceGrid";
 import Head from "../components/Head";
-import StatsCounter from "../components/StatsCounter";
 import { C } from "../lib/calculators";
 import { useBlogs } from "../lib/api";
 import IpoList from "../components/IpoList";
 import CalcShowcase from "../components/CalcShowcase";
 import LogoSlider from "../components/LogoSlider";
 
+
 /* ---------- HERO SLIDER DATA ---------- */
 // Apna sahi demat account link yahan daalo
-const DEMAT_URL = "https://www.motilaloswal.com/open-demat-account";
+const DEMAT_URL =
+  "https://www.motilaloswal.com/open-demat-account";
 
 const img = (id) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1800&q=70`;
@@ -52,9 +53,82 @@ const Chevron = ({ dir }) => (
     strokeLinejoin="round"
     aria-hidden="true"
   >
-    <path d={dir === "left" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"} />
+    <path
+      d={
+        dir === "left"
+          ? "M15 5l-7 7 7 7"
+          : "M9 5l7 7-7 7"
+      }
+    />
   </svg>
 );
+
+/* =========================================================
+    SMOOTH SCROLL REVEAL
+
+    Har element jab screen par aata hai tab slow aur smooth
+    tarike se apni direction se aata hai.
+
+    Props:
+      from  -> "bottom" | "left" | "right" | "top" | "zoom"
+      delay -> ms (cards ko ek-ek karke laane ke liye)
+      as    -> koi bhi tag (div, section, span, p ...)
+
+    Speed badalni ho to neeche <style> me ye 2 values badlo:
+      opacity 1100ms  |  transform 1500ms  |  distance (px) .rv-bottom/.rv-left...
+========================================================= */
+
+function Reveal({
+  as: Tag = "div",
+  from = "bottom",
+  delay = 0,
+  className = "",
+  children,
+}) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    // Reduced motion ya purane browser: seedha dikha do
+    if (
+      typeof IntersectionObserver === "undefined" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      setVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect(); // sirf ek baar animate hoga
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      }
+    );
+
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <Tag
+      ref={ref}
+      style={{ "--rv-delay": `${delay}ms` }}
+      className={`rv rv-${from} ${visible ? "rv-in" : ""} ${className}`}
+    >
+      {children}
+    </Tag>
+  );
+}
 
 export default function Home() {
   const blogs = useBlogs();
@@ -74,45 +148,6 @@ export default function Home() {
   `;
 
   /* =========================================================
-      SCROLL REVEAL ANIMATION
-      Hero section ko intentionally touch nahi kiya gaya.
-  ========================================================= */
-
-  useEffect(() => {
-    const elements = document.querySelectorAll(".home-reveal");
-
-    if (!elements.length) return;
-
-    // Reduced motion enabled ho to animation disable
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      elements.forEach((element) => {
-        element.classList.add("home-reveal-visible");
-      });
-
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("home-reveal-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -40px 0px",
-      },
-    );
-
-    elements.forEach((element) => observer.observe(element));
-
-    return () => observer.disconnect();
-  }, []);
-
-  /* =========================================================
       SLIDER STATE
   ========================================================= */
 
@@ -122,13 +157,19 @@ export default function Home() {
   const touchX = useRef(null);
 
   const go = useCallback(
-    (d) => setIndex((p) => (p + d + SLIDES.length) % SLIDES.length),
-    [],
+    (d) =>
+      setIndex(
+        (p) => (p + d + SLIDES.length) % SLIDES.length
+      ),
+    []
   );
 
   // Auto-play har 5 second (hover/focus par ruk jata hai)
   useEffect(() => {
-    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+    if (
+      paused ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
       return;
 
     const t = setInterval(() => go(1), 5000);
@@ -144,7 +185,8 @@ export default function Home() {
   const onTouchEnd = (e) => {
     if (touchX.current === null) return;
 
-    const dx = e.changedTouches[0].clientX - touchX.current;
+    const dx =
+      e.changedTouches[0].clientX - touchX.current;
 
     if (Math.abs(dx) > 50) {
       go(dx < 0 ? 1 : -1);
@@ -156,51 +198,59 @@ export default function Home() {
   return (
     <>
       {/* =====================================================
-          PAGE ANIMATION STYLES
+          ANIMATION STYLES
 
-          IMPORTANT:
-          Ye styles sirf .home-reveal classes par apply hongi.
-          Hero par .home-reveal nahi hai.
+          Sirf .rv classes par apply hoti hain.
+          Hero par koi .rv class nahi hai (hero unchanged).
       ===================================================== */}
 
       <style>{`
-        .home-reveal {
+        .rv {
           opacity: 0;
-          transition-property: opacity, transform;
-          transition-duration: 750ms;
-          transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-          will-change: opacity, transform;
+          transition:
+            opacity 1100ms ease-out,
+            transform 1500ms cubic-bezier(0.22, 1.2, 0.36, 1),
+            filter 1100ms ease-out;
+          will-change: opacity, transform, filter;
         }
 
-        /* Bottom → Top */
-        .home-reveal-bottom {
-          transform: translate3d(0, 55px, 0);
+        /* Direction (start position) - strong movement */
+        .rv-bottom { transform: translate3d(0, 120px, 0) scale(0.94); }
+        .rv-top    { transform: translate3d(0, -100px, 0) scale(0.94); }
+        .rv-left   { transform: translate3d(-160px, 0, 0) scale(0.94); }
+        .rv-right  { transform: translate3d(160px, 0, 0) scale(0.94); }
+
+        /* Zoom + rise (cards ke liye) */
+        .rv-zoom {
+          transform: translate3d(0, 80px, 0) scale(0.78);
+          filter: blur(6px);
         }
 
-        /* Left → Right */
-        .home-reveal-left {
-          transform: translate3d(-60px, 0, 0);
-        }
-
-        /* Right → Left */
-        .home-reveal-right {
-          transform: translate3d(60px, 0, 0);
-        }
-
-        /* Top → Bottom */
-        .home-reveal-top {
-          transform: translate3d(0, -55px, 0);
-        }
-
-        .home-reveal-visible {
+        /* Visible state (stagger delay yahin lagta hai) */
+        .rv.rv-in {
           opacity: 1;
-          transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0) scale(1);
+          filter: blur(0);
+          transition-delay: var(--rv-delay, 0ms);
+          will-change: auto;
+        }
+
+        /* Mobile: thodi kam doori + stagger delay nahi
+           (cards ek ke neeche ek hote hain) */
+        @media (max-width: 767px) {
+          .rv-bottom { transform: translate3d(0, 80px, 0) scale(0.95); }
+          .rv-top    { transform: translate3d(0, -70px, 0) scale(0.95); }
+          .rv-left   { transform: translate3d(-80px, 0, 0) scale(0.95); }
+          .rv-right  { transform: translate3d(80px, 0, 0) scale(0.95); }
+          .rv-zoom   { transform: translate3d(0, 60px, 0) scale(0.82); }
+          .rv.rv-in  { transition-delay: 0ms; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .home-reveal {
+          .rv {
             opacity: 1 !important;
             transform: none !important;
+            filter: none !important;
             transition: none !important;
             will-change: auto !important;
           }
@@ -223,7 +273,9 @@ export default function Home() {
           onFocus={() => setPaused(true)}
           onBlur={() => setPaused(false)}
           onKeyDown={onKeyDown}
-          onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
+          onTouchStart={(e) =>
+            (touchX.current = e.touches[0].clientX)
+          }
           onTouchEnd={onTouchEnd}
         >
           {/* BACKGROUND IMAGES */}
@@ -244,10 +296,12 @@ export default function Home() {
                     }))
                   }
                   className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-                    i === index ? "opacity-100" : "opacity-0"
+                    i === index
+                      ? "opacity-100"
+                      : "opacity-0"
                   }`}
                 />
-              ),
+              )
             )}
 
             {/* navy tint + white fade (text saaf padhne ke liye) */}
@@ -259,7 +313,9 @@ export default function Home() {
           </div>
 
           <p className="sr-only" aria-live="polite">
-            {`Slide ${index + 1} of ${SLIDES.length}: ${SLIDES[index].alt}`}
+            {`Slide ${index + 1} of ${SLIDES.length}: ${
+              SLIDES[index].alt
+            }`}
           </p>
 
           {/* LEFT ARROW */}
@@ -382,9 +438,9 @@ export default function Home() {
                   sm:text-base
                 "
               >
-                Goal-based investing, transparent guidance and complete
-                financial solutions for families and businesses, from Mandi
-                Dabwali.
+                Goal-based investing, transparent guidance and
+                complete financial solutions for families and
+                businesses, from Mandi Dabwali.
               </p>
 
               {/* BUTTONS */}
@@ -427,25 +483,27 @@ export default function Home() {
                 {/* THIRD BUTTON */}
 
                 <a
+                  // href={DEMAT_URL}
                   href="https://mosl.co/aW0pvQmxUM"
+
                   target="_blank"
                   rel="noopener noreferrer"
                   className="
-    btn
-    btn-o
-    whitespace-nowrap
-    border-[#E7B65A]
-    bg-[#E7B65A]
-    text-ink
-    transition-all
-    duration-300
-    hover:-translate-y-1
-    hover:border-[#D69E35]
-    hover:bg-[#D69E35]
-    hover:text-ink
-    hover:shadow-[0_10px_25px_rgba(231,182,90,0.35)]
-    active:translate-y-0
-  "
+                    btn
+                    btn-o
+                    whitespace-nowrap
+                    border-[#E7B65A]
+                    bg-[#E7B65A]
+                    text-ink
+                    transition-all
+                    duration-300
+                    hover:-translate-y-1
+                    hover:border-[#D69E35]
+                    hover:bg-[#D69E35]
+                    hover:text-ink
+                    hover:shadow-[0_10px_25px_rgba(231,182,90,0.35)]
+                    active:translate-y-0
+                  "
                 >
                   Open Demat Account
                 </a>
@@ -529,9 +587,9 @@ export default function Home() {
             ANIMATED STATS
         ========================================================= */}
 
-        <div className="home-reveal home-reveal-bottom w-full min-w-0">
+        <Reveal from="bottom" className="w-full min-w-0">
           <LogoSlider />
-        </div>
+        </Reveal>
 
         {/* =========================================================
             FINANCIAL SOLUTIONS
@@ -539,8 +597,6 @@ export default function Home() {
 
         <section
           className="
-            home-reveal
-            home-reveal-left
             w-full
             min-w-0
             overflow-hidden
@@ -550,15 +606,19 @@ export default function Home() {
           "
         >
           <div className={container}>
-            <Head
-              e="Financial Solutions"
-              t="Complete solutions, under one roof"
-              s="Explore investment, protection and wealth planning solutions designed around your financial needs."
-            />
+            <Reveal from="bottom">
+              <Head
+                e="Financial Solutions"
+                t="Complete solutions, under one roof"
+                s="Explore investment, protection and wealth planning solutions designed around your financial needs."
+              />
+            </Reveal>
 
-            <ServiceGrid n={6} />
+            <Reveal from="left" delay={150}>
+              <ServiceGrid n={6} />
+            </Reveal>
 
-            <div className="mt-7">
+            <Reveal from="bottom" delay={150} className="mt-7">
               <Link
                 to="/services"
                 className="
@@ -573,7 +633,7 @@ export default function Home() {
               >
                 View all services →
               </Link>
-            </div>
+            </Reveal>
           </div>
         </section>
 
@@ -583,18 +643,21 @@ export default function Home() {
 
         <section
           className="
-            home-reveal
-            home-reveal-right
             sec
+            overflow-hidden
             bg-white
           "
         >
           <div className="w">
-            <h2 className="mb-8 text-center font-serif text-3xl text-ink sm:text-4xl">
-              IPO Corner
-            </h2>
+            <Reveal from="bottom">
+              <h2 className="mb-8 text-center font-serif text-3xl text-ink sm:text-4xl">
+                IPO Corner
+              </h2>
+            </Reveal>
 
-            <IpoList limit={2} />
+            <Reveal from="right" delay={150}>
+              <IpoList limit={2} />
+            </Reveal>
           </div>
         </section>
 
@@ -602,103 +665,9 @@ export default function Home() {
             FINANCIAL GOALS
         ========================================================= */}
 
-        <div className="home-reveal home-reveal-bottom w-full min-w-0">
+        <Reveal from="bottom" className="w-full min-w-0">
           <CalcShowcase />
-        </div>
-
-        {/* =========================================================
-            SMART FINANCIAL TOOLS
-        ========================================================= */}
-
-        {/*
-        <section className="w-full overflow-hidden py-12 sm:py-14 lg:py-16">
-          <div className={container}>
-            <Head
-              e="Smart Financial Tools"
-              t="Make better decisions with the right numbers"
-              s="Use our simple tools to understand investments, returns, risk and financial goals."
-            />
-
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-              {[
-                {
-                  icon: "📈",
-                  title: "SIP Calculator",
-                  text: "Estimate how your monthly SIP investment can grow over time.",
-                  link: "/calculators/sip",
-                  label: "Calculate SIP →",
-                },
-                {
-                  icon: "⚖️",
-                  title: "Compare Funds",
-                  text: "Compare mutual funds side by side and understand key details.",
-                  link: "/compare",
-                  label: "Compare Funds →",
-                },
-                {
-                  icon: "🧭",
-                  title: "Risk Profile",
-                  text: "Understand your investment risk profile with a quick quiz.",
-                  link: "/risk",
-                  label: "Check Your Risk →",
-                },
-              ].map((item) => (
-                <div
-                  key={item.title}
-                  className="
-                    card
-                    group
-                    min-w-0
-                    transition-all
-                    duration-300
-                    hover:-translate-y-2
-                    hover:border-[#29466D]
-                    hover:shadow-[0_14px_35px_rgba(41,70,109,0.14)]
-                  "
-                >
-                  <div
-                    className="
-                      mb-3
-                      text-3xl
-                      transition-transform
-                      duration-300
-                      group-hover:scale-110
-                    "
-                  >
-                    {item.icon}
-                  </div>
-
-                  <h3 className="font-serif text-xl text-ink transition-colors duration-300 group-hover:text-[#29466D]">
-                    {item.title}
-                  </h3>
-
-                  <p className="my-3 text-sm leading-6 text-slate-500">
-                    {item.text}
-                  </p>
-
-                  <Link
-                    to={item.link}
-                    className="
-                      inline-flex
-                      items-center
-                      gap-1
-                      text-sm
-                      font-bold
-                      text-brand
-                      transition-all
-                      duration-300
-                      hover:gap-2
-                      hover:text-[#D69E35]
-                    "
-                  >
-                    {item.label}
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-        */}
+        </Reveal>
 
         {/* =========================================================
             EXPLORE
@@ -706,8 +675,6 @@ export default function Home() {
 
         <section
           className="
-            home-reveal
-            home-reveal-top
             w-full
             min-w-0
             overflow-hidden
@@ -718,7 +685,12 @@ export default function Home() {
           "
         >
           <div className={container}>
-            <Head e="Explore" t="Useful resources for your financial journey" />
+            <Reveal from="bottom">
+              <Head
+                e="Explore"
+                t="Useful resources for your financial journey"
+              />
+            </Reveal>
 
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
               {[
@@ -743,50 +715,65 @@ export default function Home() {
                   link: "/compare",
                   button: "Compare Funds",
                 },
-              ].map((item) => (
-                <div
+              ].map((item, i) => (
+                <Reveal
                   key={item.title}
-                  className="
-                    card
-                    group
-                    min-w-0
-                    transition-all
-                    duration-300
-                    hover:-translate-y-2
-                    hover:border-[#29466D]
-                    hover:shadow-[0_14px_35px_rgba(41,70,109,0.14)]
-                  "
+                  from="zoom"
+                  delay={i * 250}
+                  className="h-full min-w-0"
                 >
-                  <span className="ey transition-colors duration-300 group-hover:text-[#D69E35]">
-                    {item.ey}
-                  </span>
-
-                  <h3 className="my-2 break-words font-serif text-xl text-ink transition-colors duration-300 group-hover:text-[#29466D]">
-                    {item.title}
-                  </h3>
-
-                  <p className="mb-5 text-sm leading-6 text-slate-500">
-                    {item.text}
-                  </p>
-
-                  <Link
-                    to={item.link}
+                  <div
                     className="
-                      btn
+                      card
+                      group
+                      h-full
+                      min-w-0
                       transition-all
                       duration-300
-                      hover:-translate-y-1
-                      hover:shadow-md
-                      active:translate-y-0
+                      hover:-translate-y-2
+                      hover:border-[#29466D]
+                      hover:shadow-[0_14px_35px_rgba(41,70,109,0.14)]
                     "
                   >
-                    {item.button}
-                  </Link>
-                </div>
+                    <span className="ey transition-colors duration-300 group-hover:text-[#D69E35]">
+                      {item.ey}
+                    </span>
+
+                    <h3 className="my-2 break-words font-serif text-xl text-ink transition-colors duration-300 group-hover:text-[#29466D]">
+                      {item.title}
+                    </h3>
+
+                    <p className="mb-5 text-sm leading-6 text-slate-500">
+                      {item.text}
+                    </p>
+
+                    <Link
+                      to={item.link}
+                      className="
+                        btn
+                        transition-all
+                        duration-300
+                        hover:-translate-y-1
+                        hover:shadow-md
+                        active:translate-y-0
+                      "
+                    >
+                      {item.button}
+                    </Link>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
+
+        {/* =========================================================
+            SIP CALCULATOR
+        ========================================================= */}
+
+        <Reveal as="section" from="bottom" className="w-full min-w-0">
+          <CalcWidget id="sip" />
+        </Reveal>
 
         {/* =========================================================
             WHY CHOOSE US
@@ -794,8 +781,6 @@ export default function Home() {
 
         <section
           className="
-            home-reveal
-            home-reveal-left
             w-full
             min-w-0
             overflow-hidden
@@ -805,11 +790,13 @@ export default function Home() {
           "
         >
           <div className={container}>
-            <Head
-              e="Why choose us"
-              t="Financial planning made simpler"
-              s="We focus on making financial decisions easier to understand and easier to act on."
-            />
+            <Reveal from="bottom">
+              <Head
+                e="Why choose us"
+                t="Financial planning made simpler"
+                s="We focus on making financial decisions easier to understand and easier to act on."
+              />
+            </Reveal>
 
             <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2">
               {[
@@ -833,48 +820,55 @@ export default function Home() {
                   title: "Stay focused",
                   text: "Avoid unnecessary complexity and stay focused on long-term financial goals.",
                 },
-              ].map((item) => (
-                <div
+              ].map((item, i) => (
+                <Reveal
                   key={item.number}
-                  className="
-                    group
-                    min-w-0
-                    rounded-2xl
-                    border
-                    border-[#29466D]
-                    bg-[#071A33]
-                    p-5
-                    shadow-sm
-                    transition-all
-                    duration-300
-                    hover:-translate-y-2
-                    hover:border-[#E7B65A]
-                    hover:shadow-[0_16px_35px_rgba(41,70,109,0.28)]
-                    sm:p-6
-                  "
+                  from={i % 2 === 0 ? "left" : "right"}
+                  delay={(i % 2) * 300}
+                  className="h-full min-w-0"
                 >
                   <div
                     className="
-                      mb-4
-                      text-3xl
-                      font-semibold
-                      text-[#E7B65A]
-                      transition-transform
+                      group
+                      h-full
+                      min-w-0
+                      rounded-2xl
+                      border
+                      border-[#29466D]
+                      bg-[#071A33]
+                      p-5
+                      shadow-sm
+                      transition-all
                       duration-300
-                      group-hover:translate-x-1
+                      hover:-translate-y-2
+                      hover:border-[#E7B65A]
+                      hover:shadow-[0_16px_35px_rgba(41,70,109,0.28)]
+                      sm:p-6
                     "
                   >
-                    {item.number}
+                    <div
+                      className="
+                        mb-4
+                        text-3xl
+                        font-semibold
+                        text-[#E7B65A]
+                        transition-transform
+                        duration-300
+                        group-hover:translate-x-1
+                      "
+                    >
+                      {item.number}
+                    </div>
+
+                    <h3 className="break-words font-serif text-xl text-white transition-colors duration-300 sm:text-2xl">
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-3 text-sm leading-7 text-[#D6E2F0]">
+                      {item.text}
+                    </p>
                   </div>
-
-                  <h3 className="break-words font-serif text-xl text-white transition-colors duration-300 sm:text-2xl">
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-7 text-[#D6E2F0]">
-                    {item.text}
-                  </p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -947,8 +941,6 @@ export default function Home() {
 
         <section
           className="
-            home-reveal
-            home-reveal-right
             w-full
             min-w-0
             overflow-hidden
@@ -958,82 +950,93 @@ export default function Home() {
           "
         >
           <div className={container}>
-            <Head
-              e="Insights"
-              t="Smarter investing"
-              s="Simple financial insights to help you understand money and investing better."
-            />
+            <Reveal from="bottom">
+              <Head
+                e="Insights"
+                t="Smarter investing"
+                s="Simple financial insights to help you understand money and investing better."
+              />
+            </Reveal>
 
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-              {blogs.slice(0, 3).map((b) => (
-                <Link
+              {blogs.slice(0, 3).map((b, i) => (
+                <Reveal
                   key={b[1]}
-                  to="/blogs"
-                  className="
-                    card
-                    group
-                    min-w-0
-                    transition-all
-                    duration-300
-                    hover:-translate-y-2
-                    hover:border-[#29466D]
-                    hover:shadow-[0_14px_35px_rgba(41,70,109,0.14)]
-                  "
+                  from="zoom"
+                  delay={i * 250}
+                  className="h-full min-w-0"
                 >
-                  <span className="text-[10px] font-extrabold text-gold transition-colors duration-300 group-hover:text-[#D69E35]">
-                    {b[0]}
-                  </span>
-
-                  <h3 className="my-2 break-words font-serif text-lg text-ink transition-colors duration-300 group-hover:text-[#29466D]">
-                    {b[1]}
-                  </h3>
-
-                  <p className="text-sm leading-6 text-slate-500">
-                    {b[2].slice(0, 100)}…
-                  </p>
-
-                  <span
+                  <Link
+                    to="/blogs"
                     className="
-                      mt-4
-                      inline-flex
-                      items-center
-                      gap-1
-                      text-sm
-                      font-bold
-                      text-brand
+                      card
+                      group
+                      block
+                      h-full
+                      min-w-0
                       transition-all
                       duration-300
-                      group-hover:gap-2
-                      group-hover:text-[#D69E35]
+                      hover:-translate-y-2
+                      hover:border-[#29466D]
+                      hover:shadow-[0_14px_35px_rgba(41,70,109,0.14)]
                     "
                   >
-                    Read more →
-                  </span>
-                </Link>
+                    <span className="text-[10px] font-extrabold text-gold transition-colors duration-300 group-hover:text-[#D69E35]">
+                      {b[0]}
+                    </span>
+
+                    <h3 className="my-2 break-words font-serif text-lg text-ink transition-colors duration-300 group-hover:text-[#29466D]">
+                      {b[1]}
+                    </h3>
+
+                    <p className="text-sm leading-6 text-slate-500">
+                      {b[2].slice(0, 100)}…
+                    </p>
+
+                    <span
+                      className="
+                        mt-4
+                        inline-flex
+                        items-center
+                        gap-1
+                        text-sm
+                        font-bold
+                        text-brand
+                        transition-all
+                        duration-300
+                        group-hover:gap-2
+                        group-hover:text-[#D69E35]
+                      "
+                    >
+                      Read more →
+                    </span>
+                  </Link>
+                </Reveal>
               ))}
             </div>
 
-            <Link
-              to="/blogs"
-              className="
-                group
-                mt-6
-                inline-flex
-                max-w-full
-                break-words
-                items-center
-                gap-1
-                text-sm
-                font-bold
-                text-brand
-                transition-all
-                duration-300
-                hover:gap-2
-                hover:text-[#D69E35]
-              "
-            >
-              View all insights →
-            </Link>
+            <Reveal from="bottom" delay={200} className="mt-6">
+              <Link
+                to="/blogs"
+                className="
+                  group
+                  inline-flex
+                  max-w-full
+                  break-words
+                  items-center
+                  gap-1
+                  text-sm
+                  font-bold
+                  text-brand
+                  transition-all
+                  duration-300
+                  hover:gap-2
+                  hover:text-[#D69E35]
+                "
+              >
+                View all insights →
+              </Link>
+            </Reveal>
           </div>
         </section>
 
@@ -1043,8 +1046,6 @@ export default function Home() {
 
         <section
           className="
-            home-reveal
-            home-reveal-bottom
             w-full
             min-w-0
             overflow-hidden
@@ -1062,41 +1063,51 @@ export default function Home() {
               lg:py-16
             `}
           >
-            <span className="text-xs font-bold uppercase tracking-wider text-gold">
-              Ready to get started?
-            </span>
+            <Reveal as="span" from="bottom" className="block">
+              <span className="text-xs font-bold uppercase tracking-wider text-gold">
+                Ready to get started?
+              </span>
+            </Reveal>
 
-            <h2
-              className="
-                mx-auto
-                mt-3
-                max-w-2xl
-                break-words
-                font-serif
-                text-3xl
-                leading-tight
-                text-white
-                sm:text-4xl
-              "
+            <Reveal from="bottom" delay={200}>
+              <h2
+                className="
+                  mx-auto
+                  mt-3
+                  max-w-2xl
+                  break-words
+                  font-serif
+                  text-3xl
+                  leading-tight
+                  text-white
+                  sm:text-4xl
+                "
+              >
+                Your financial goals deserve a clear plan.
+              </h2>
+            </Reveal>
+
+            <Reveal from="bottom" delay={400}>
+              <p
+                className="
+                  mx-auto
+                  mt-4
+                  max-w-xl
+                  text-sm
+                  leading-6
+                  text-slate-300
+                "
+              >
+                Start with a free consultation and take the first
+                step towards better financial planning.
+              </p>
+            </Reveal>
+
+            <Reveal
+              from="zoom"
+              delay={600}
+              className="mt-7 flex flex-wrap justify-center gap-3"
             >
-              Your financial goals deserve a clear plan.
-            </h2>
-
-            <p
-              className="
-                mx-auto
-                mt-4
-                max-w-xl
-                text-sm
-                leading-6
-                text-slate-300
-              "
-            >
-              Start with a free consultation and take the first step towards
-              better financial planning.
-            </p>
-
-            <div className="mt-7 flex flex-wrap justify-center gap-3">
               <Link
                 to="/contact"
                 className="
@@ -1132,7 +1143,7 @@ export default function Home() {
               >
                 Try a Calculator
               </Link>
-            </div>
+            </Reveal>
           </div>
         </section>
       </main>
